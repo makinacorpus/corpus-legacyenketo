@@ -57,7 +57,26 @@ USE/Install With makina-states
     git fetch --all
     git push github master:prod
 
-
-
-
-
+# [initenketo]
+# recipe = plone.recipe.command
+# update-command=${initenketo:command}
+# command =
+#     mysql="${buildout:directory}/bin/mysql"
+#     if [ ! -f ${mycnf:datadir}/.enketo_initdb_c ];then
+#     echo 'CREATE DATABASE ${enketo:database} CHARACTER SET = UTF8;'|$mysql -u root mysql
+#     if [ "$?" = "0" ];then touch ${mycnf:datadir}/.enketo_initdb_c;fi
+#     fi
+#     if [ ! -f ${mycnf:datadir}/.enketo_initdb_p ];then
+#     echo "delete from user where user='';
+#     grant all privileges on ${enketo:database}.* to '${enketo:username}'@'%' IDENTIFIED BY '${enketo:password}';
+#     flush privileges;"|$mysql -u root mysql && touch ${mycnf:datadir}/.enketo_initdb_p;
+#     fi
+#     if [ ! -f ${mycnf:datadir}/.enketo_initdb_db ];then
+#     echo > "${buildout:directory}/enketo.sql";
+#     for i in ${buildout:directory}/session.sql surveys.sql instances.sql properties.sql languages.sql;do
+#       cat src.mrdeveloper/enketo/devinfo/$i>>"${buildout:directory}/enketo.sql";
+#     done;
+#     $mysql -u ${enketo:username} --password="${enketo:password}" ${enketo:database}< "${buildout:directory}/enketo.sql" && touch  ${mycnf:datadir}/.enketo_initdb_db;
+#     rm -f "${buildout:directory}/enketo.sql";
+#     fi
+#
