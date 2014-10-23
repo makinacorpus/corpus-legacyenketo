@@ -24,6 +24,7 @@ prepreqs-{{cfg.name}}:
       - mysql-client
       - apache2-utils
       - autoconf
+      - php5-xsl
       - automake
       - build-essential
       - bzip2
