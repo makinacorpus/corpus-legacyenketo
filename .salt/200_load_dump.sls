@@ -6,7 +6,15 @@
 
 {{cfg.name}}-enketo-dump:
   cmd.run:
-    - name: {{mysql()}} < {{cfg.project_root}}/.salt/enketo.sql
+    - name: |
+            {{mysql()}} < {{cfg.project_root}}/.salt/enketo.sql
+            for i in \
+               {{cfg.data_root}}/enketo/devinfo/Helper files/countries.sql \
+               {{cfg.data_root}}/enketo/devinfo/database/properties.sql \
+               {{cfg.data_root}}/enketo/devinfo/database/languages.sql \
+               {{cfg.data_root}}/enketo/devinfo/database/surveys.sql ;do
+                {{mysql()}} < "${i}"
+            done
     - unless: |
               echo 'select * from instances;'| {{mysql()}} &&\
               echo 'select * from languages;'| {{mysql()}} &&\
