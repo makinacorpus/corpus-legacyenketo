@@ -183,6 +183,7 @@ enketogits:
     - target: {{cfg.data_root}}/enketo/public
     - require:
       - mc_git: enketogit
+
 enketo-{{cfg.name}}-dirs:
   file.directory:
     - require:
@@ -202,3 +203,18 @@ enketo-{{cfg.name}}-dirs:
       - mc_git: enketogit
     - user: {{cfg.user}}
     - use_vt: true
+
+{% macro mysql() %}mysql --host={{data.db_host}} --port={{data.db_port}} --user={{data.db_user}} --password="{{data.db_password}}" "{{data.db_name}}"{% endmacro %}
+
+{{cfg.name}}-enketo-dump:
+  cmd.run:
+    - name: {{mysql()}} < {{cfg.project_root}}/.salt/enketo.sql
+    - unless: |
+              echo 'select * from instances;'| {{mysql()}} &&\
+              echo 'select * from languages;'| {{mysql()}} &&\
+              echo 'select * from surveys;'| {{mysql()}} &&\
+              echo 'select * from sessions;'| {{mysql()}} &&\
+              echo 'select * from properties;'| {{mysql()}} &&\
+    - watch:
+      - cmd: {{cfg.name}}-rungit-submodules
+

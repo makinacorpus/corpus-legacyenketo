@@ -11,7 +11,7 @@
 # you can also merge parts of this file
 # with the relevant pillar
 
-# makina-states mysql configuration (copy in your pillar, 
+# makina-states mysql configuration (copy in your pillar,
 #                                    uncomment and edit)
 # makina-states.services.db.mysql.available_mem: 1500
 # corpus mysql project configuration
@@ -70,11 +70,11 @@ makina-projects.projectname:
       memory_limit: "256M"
       modules:
         apc:
-          user_entries_hint: 1000,
-          num_files_hint: 2000,
-          ttl: 0,
-          user_ttl: 300,
-          gc_ttl: 0,
+          user_entries_hint: 1000
+          num_files_hint: 2000
+          ttl: 0
+          user_ttl: 300
+          gc_ttl: 0
           shm_size: "64M"
 
 # vim:set ft=yaml:
